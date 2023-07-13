@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class EmticonSticker extends StatefulWidget {
+class EmoticonSticker extends StatefulWidget {
   final VoidCallback onTransform;
   final String imgPath;
   final bool isSelected;
 
-  const EmticonSticker({
+  const EmoticonSticker({
     super.key,
     required this.onTransform,
     required this.imgPath,
@@ -13,10 +13,10 @@ class EmticonSticker extends StatefulWidget {
   });
 
   @override
-  State<EmticonSticker> createState() => _EmticonStickerState();
+  State<EmoticonSticker> createState() => _EmoticonStickerState();
 }
 
-class _EmticonStickerState extends State<EmticonSticker> {
+class _EmoticonStickerState extends State<EmoticonSticker> {
   double scale = 1;
   double hTransform = 0;
   double vTransform = 0;

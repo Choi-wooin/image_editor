@@ -1,10 +1,11 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:image_editor/component/main_app_bar.dart';
 import 'package:image_picker/image_picker.dart';
-
+import 'package:uuid/uuid.dart';
+import '../component/emoticon_sticker.dart';
 import '../component/footer.dart';
+import '../model/sticker_model.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -15,6 +16,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   XFile? image;
+  Set<StickerModel> stickers = {};
+  String? selectedID;
 
   @override
   Widget build(BuildContext context) {
@@ -51,9 +54,24 @@ class _HomeScreenState extends State<HomeScreen> {
     if (image != null) {
       return Positioned.fill(
         child: InteractiveViewer(
-          child: Image.file(
-            File(image!.path),
-            fit: BoxFit.cover,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              Image.file(
+                File(image!.path),
+                fit: BoxFit.cover,
+              ),
+              ...stickers.map(
+                (sticker) => Center(
+                  child: EmoticonSticker(
+                    key: ObjectKey(sticker.id),
+                    onTransform: (){onTransform(sticker.id);},
+                    imgPath: sticker.imgPath,
+                    isSelected: selectedID == sticker.id,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       );
@@ -81,6 +99,21 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void onDeleteImage() {}
 
-  void onEmoticonTap(int index){
+  void onEmoticonTap(int index) async {
+    setState(() {
+      stickers = {
+        ...stickers,
+        StickerModel(
+          id: Uuid().v4(),
+          imgPath: 'assets/img/emoticon_$index.png',
+        ),
+      };
+    });
+  }
+
+  void onTransform(String id) {
+    setState(() {
+      selectedID = id;
+    });
   }
 }
