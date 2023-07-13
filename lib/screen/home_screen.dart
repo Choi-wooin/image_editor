@@ -60,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
     } else {
       return Center(
         child: TextButton(
-          style: TextButton.styleFrom(primary: Colors.grey),
+          style: TextButton.styleFrom(foregroundColor: Colors.grey),
           onPressed: onPickImage,
           child: Text('이미지 선택하기'),
         ),
