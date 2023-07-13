@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 class MainAppBar extends StatelessWidget {
   final VoidCallback onPickImage;
   final VoidCallback onSaveImage;
-  final VoidCallback onDeleteImage;
+  final VoidCallback onDeleteItem;
 
   const MainAppBar({
     super.key,
     required this.onPickImage,
     required this.onSaveImage,
-    required this.onDeleteImage,
+    required this.onDeleteItem,
   });
 
   @override
@@ -31,7 +31,7 @@ class MainAppBar extends StatelessWidget {
             ),
           ),
           IconButton(
-            onPressed: onDeleteImage,
+            onPressed: onDeleteItem,
             icon: Icon(
               Icons.delete_forever_outlined,
               color: Colors.grey[700],
