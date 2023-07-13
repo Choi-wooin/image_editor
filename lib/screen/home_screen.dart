@@ -65,7 +65,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 (sticker) => Center(
                   child: EmoticonSticker(
                     key: ObjectKey(sticker.id),
-                    onTransform: (){onTransform(sticker.id);},
+                    onTransform: () {
+                      onTransform(sticker.id);
+                    },
                     imgPath: sticker.imgPath,
                     isSelected: selectedID == sticker.id,
                   ),
@@ -97,7 +99,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void onSaveImage() {}
 
-  void onDeleteImage() {}
+  void onDeleteImage() async {
+    setState(() {
+      stickers = stickers.where((sticker) => sticker.id != selectedID).toSet();
+    });
+  }
 
   void onEmoticonTap(int index) async {
     setState(() {
